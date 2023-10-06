@@ -1,0 +1,7 @@
+{
+  "name": "alarma-robo-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
