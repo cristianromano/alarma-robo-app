@@ -8,6 +8,10 @@ import {
 import { Router } from '@angular/router';
 import { Auth, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +19,9 @@ import { SplashScreen } from '@capacitor/splash-screen';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
+
   form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -57,5 +64,62 @@ export class LoginPage implements OnInit {
       .catch((e) => {
         console.log(e.code);
       });
+  }
+
+  async singAdmin() {
+    await signInWithEmailAndPassword(this.auth, 'admin@admin.com', '111111');
+    SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+    this.router.navigate(['/home']);
+  }
+
+  async singUser() {
+    await signInWithEmailAndPassword(
+      this.auth,
+      'invitado@invitado.com',
+      '222222'
+    );
+    SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+    this.router.navigate(['/home']);
+  }
+
+  async singInvitado() {
+    await signInWithEmailAndPassword(
+      this.auth,
+      'usuario@usuario.com',
+      '333333'
+    );
+    SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+    this.router.navigate(['/home']);
+  }
+
+  async singAnonimo() {
+    await signInWithEmailAndPassword(
+      this.auth,
+      'anonimo@anonimo.com',
+      '444444'
+    );
+    SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+    this.router.navigate(['/home']);
+  }
+
+  async singTester() {
+    await signInWithEmailAndPassword(this.auth, 'tester@tester.com', '555555');
+    SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+    this.router.navigate(['/home']);
   }
 }

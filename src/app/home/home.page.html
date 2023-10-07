@@ -5,6 +5,55 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div *ngIf="!toggleValue && bandera">
+    <form [formGroup]="form">
+      <ion-card>
+        <ion-card-content>
+          <label *ngIf="err"
+            >en caso de credenciales invalidas hasta que no ingreses un usuario
+            los sensores seguiran activos</label
+          >
+          <ion-item>
+            <ion-input
+              label="Email"
+              fill="solid"
+              placeholder="Ingrese email"
+              formControlName="email"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Password"
+              fill="solid"
+              placeholder=" Ingrese Password"
+              type="password"
+              value="password"
+              formControlName="password"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            color="danger"
+            *ngIf="
+              form?.get('email')?.touched &&
+              form?.get('email')?.hasError('email')
+            "
+            style="margin-left: 30%"
+            >Email invalido</ion-label
+          >
+        </ion-card-content>
+        <div class="botones">
+          <ion-button
+            size="full"
+            color="tertiary"
+            [disabled]="!form.valid"
+            (click)="ingresar()"
+            >Ingresar</ion-button
+          >
+        </div>
+      </ion-card>
+    </form>
+  </div>
+
   <div class="container">
     <ion-toggle
       [enableOnOffLabels]="false"
@@ -12,7 +61,4 @@
       (ionChange)="activar()"
     ></ion-toggle>
   </div>
-  <!-- <div>X:{{x}}</div>
-  <div>Z:{{z}}</div>
-  <div>Y:{{y}}</div> -->
 </ion-content>

@@ -14,6 +14,7 @@
           <ion-item>
             <ion-input
               label="Email"
+              fill="solid"
               placeholder="Ingrese email"
               formControlName="email"
             ></ion-input>
@@ -21,6 +22,7 @@
           <ion-item>
             <ion-input
               label="Password"
+              fill="solid"
               placeholder=" Ingrese Password"
               type="password"
               value="password"
@@ -38,7 +40,11 @@
           >
         </ion-card-content>
         <div class="botones">
-          <ion-button size="full" [disabled]="!form.valid" (click)="login()"
+          <ion-button
+            size="full"
+            color="tertiary"
+            [disabled]="!form.valid"
+            (click)="login()"
             >Login</ion-button
           >
           <ion-button size="full" fill="clear" (click)="irRegistro()"
@@ -47,5 +53,12 @@
         </div>
       </ion-card>
     </form>
+  </div>
+  <div class="users">
+    <ion-button color="tertiary" (click)="singAdmin()">Admin</ion-button>
+    <ion-button color="tertiary" (click)="singInvitado()">Invitado</ion-button>
+    <ion-button color="tertiary" (click)="singUser()">Usuario</ion-button>
+    <ion-button color="tertiary" (click)="singAnonimo()">Anonimo</ion-button>
+    <ion-button color="tertiary" (click)="singTester()">Tester</ion-button>
   </div>
 </ion-content>

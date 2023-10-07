@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PluginListenerHandle } from '@capacitor/core';
 import { Motion, OrientationListenerEvent } from '@capacitor/motion';
 import { async } from 'rxjs';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { CapacitorFlash } from '@capgo/capacitor-flash';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Auth, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +16,10 @@ export class HomePage {
   toggleValue: boolean = false;
   accelHandler?: PluginListenerHandle;
   orientacion?: OrientationListenerEvent;
+  showCredentials: boolean = false;
+  err?: boolean = false;
+  form: FormGroup;
+  bandera: boolean = false;
   x?: any;
   y?: any;
   z?: any;
@@ -22,14 +28,22 @@ export class HomePage {
   audioV?: HTMLAudioElement;
   audioH?: HTMLAudioElement;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder, private auth: Auth) {
     this.audioD = new Audio();
     this.audioI = new Audio();
     this.audioV = new Audio();
     this.audioH = new Audio();
+    this.form = this.createForm();
   }
 
   ngOnInit() {}
+
+  createForm(): FormGroup {
+    return this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
 
   async start() {
     this.accelHandler = await Motion.addListener(
@@ -85,9 +99,30 @@ export class HomePage {
     if (this.toggleValue == true) {
       this.start();
     } else {
-      if (this.accelHandler) {
-        this.accelHandler.remove;
-      }
+      this.bandera = true;
+      this.ingresar();
     }
+  }
+
+  valor() {
+    this.toggleValue;
+  }
+
+  async ingresar() {
+    const email = this.form.get('email')?.value;
+    const password = this.form.get('password')?.value;
+    await signInWithEmailAndPassword(this.auth, email, password)
+      .then((e) => {
+        if (this.accelHandler) {
+          this.accelHandler.remove;
+          this.bandera = false;
+        }
+      })
+      .catch((e) => {
+        setTimeout(() => {
+          this.err = false;
+        }, 5000);
+        this.err = true;
+      });
   }
 }
