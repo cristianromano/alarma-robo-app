@@ -6,6 +6,7 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { CapacitorFlash } from '@capgo/capacitor-flash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Auth, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,11 @@ export class HomePage {
   audioV?: HTMLAudioElement;
   audioH?: HTMLAudioElement;
 
-  constructor(private formBuilder: FormBuilder, private auth: Auth) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: Auth,
+    private router: Router
+  ) {
     this.audioD = new Audio();
     this.audioI = new Audio();
     this.audioV = new Audio();
@@ -124,5 +129,10 @@ export class HomePage {
         }, 5000);
         this.err = true;
       });
+  }
+
+  LogOut() {
+    this.auth.signOut();
+    this.router.navigate(['/login']);
   }
 }
