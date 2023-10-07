@@ -1,0 +1,41 @@
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: normal;
+  margin-top: 50px;
+}
+
+ion-card-content {
+  height: 200px;
+  //   --background: white !important;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: stretch;
+  align-content: space-around;
+  //   background: white !important;
+}
+
+ion-img {
+  height: 50px;
+}
+
+form {
+  margin-top: 100px;
+  box-shadow: -7px 2px 7px 0px rgba(0, 0, 0, 1),
+    2px 16px 23px 0px rgba(47, 20, 44, 1),
+    -7px -7px 13px 1px rgba(0, 0, 0, 0.77),
+    9px -7px 10px 4px rgba(24, 24, 24, 0.74);
+  width: 90%;
+}
+
+ion-content {
+  --background: url("../../../../assets/fondo.jpg");
+}

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <ion-img src="./assets/alarma.png" class="ico"></ion-img>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="flex">
+    <form [formGroup]="form">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-input
+              label="Email"
+              placeholder="Ingrese email"
+              formControlName="email"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Password"
+              placeholder=" Ingrese Password"
+              type="password"
+              value="password"
+              formControlName="password"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            color="danger"
+            *ngIf="
+              form?.get('email')?.touched &&
+              form?.get('email')?.hasError('email')
+            "
+            style="margin-left: 30%"
+            >Email invalido</ion-label
+          >
+        </ion-card-content>
+        <div class="botones">
+          <ion-button size="full" [disabled]="!form.valid" (click)="login()"
+            >Login</ion-button
+          >
+          <ion-button size="full" fill="clear" (click)="irRegistro()"
+            >Registrarse</ion-button
+          >
+        </div>
+      </ion-card>
+    </form>
+  </div>
+</ion-content>
