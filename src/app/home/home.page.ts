@@ -105,7 +105,7 @@ export class HomePage {
       this.start();
     } else {
       this.bandera = true;
-      this.ingresar();
+      // this.ingresar();
     }
   }
 
@@ -113,22 +113,38 @@ export class HomePage {
     this.toggleValue;
   }
 
+  // async ingresar() {
+  //   debugger;
+  //   const email = this.form.get('email')?.value;
+  //   const password = this.form.get('password')?.value;
+  //   if (email != '' && password != '') {
+  //     if (this.accelHandler) {
+  //       await this.accelHandler.remove;
+  //     }
+  //     this.bandera = false;
+  //   } else {
+  //     setTimeout(() => {
+  //       this.err = false;
+  //     }, 5000);
+  //     this.err = true;
+  //   }
+  // }
+
   async ingresar() {
+    debugger;
     const email = this.form.get('email')?.value;
     const password = this.form.get('password')?.value;
-    await signInWithEmailAndPassword(this.auth, email, password)
-      .then((e) => {
-        if (this.accelHandler) {
-          this.accelHandler.remove;
-          this.bandera = false;
-        }
-      })
-      .catch((e) => {
-        setTimeout(() => {
-          this.err = false;
-        }, 5000);
-        this.err = true;
-      });
+    if (email != '' && password != '') {
+      if (this.accelHandler) {
+        await this.accelHandler.remove(); // Corrected: Call the 'remove()' method
+      }
+      this.bandera = false;
+    } else {
+      setTimeout(() => {
+        this.err = false;
+      }, 5000);
+      this.err = true;
+    }
   }
 
   LogOut() {
